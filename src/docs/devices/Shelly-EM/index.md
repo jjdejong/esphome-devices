@@ -51,7 +51,8 @@ api:
 
 # Enable OTAs
 ota:
-  password: !secret api_password
+  - platform: esphome
+    password: !secret api_password
 
 # Sync RTC with HA
 time:
@@ -96,6 +97,7 @@ sensor:
       name: Phase 1 Current
       id: current_phase_1
       filters:
+        - multiply: $scale_a_power
         - or:
           - delta: 10%
           - throttle_average: 15s
@@ -103,6 +105,7 @@ sensor:
       name: Phase 2 Current
       id: current_phase_2
       filters:
+        - multiply: $scale_b_power
         - or:
           - delta: 10%
           - throttle_average: 15s
